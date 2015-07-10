@@ -1,3 +1,5 @@
+/*global Session, GmailApp, contacts, responses*/
+
 // Log the aliases for this Gmail account.
 var me = Session.getActiveUser().getEmail();
 var aliases = GmailApp.getAliases();
@@ -12,28 +14,27 @@ function sendFeedback(name) {
   var feedback = responses[name];
   feedback = '- ' + feedback.join('\n- ');
 
-  var body = 'Way back around the beginning of March, a few people from our HR cohort filled out these anonymous forms about each other: \n' +
-    '\n' +
-    'REDACTED \n' +
-    '\n' +
-    'The original idea was to make it easier to fill out our profiles on AngelList. Apologies for following up on this waaaay too late— oops!\n' +
-    'In any case, I thought you might still be interested in seeing your results... (anonymized and randomized)\n' +
-    '\n' +
-    '=========================================================\n' +
-    '\n' +
-    feedback + '\n' +
-    '\n' +
-    '=========================================================\n' +
-    '\n' +
-    'Love ya, and all the best!\n' +
-    '\n' +
-    'David';
+  var body = ['Way back around the beginning of March, a few people from our HR cohort filled out these anonymous forms about each other:',
+    '',
+    'REDACTED ',
+    '',
+    'The idea was to make it easier to fill out our profiles on AngelList. To crowdsource our bio\'s, instead of writing about ourselves. Here are your results, anonymized and randomized',
+    '',
+    '=========================================================',
+    '',
+    feedback,
+    '',
+    '=========================================================',
+    '',
+    'Love ya, and all the best!',
+    '',
+    'David'].join('\n');
 
-  GmailApp.sendEmail(to, 'HR23 Collaborative Bios', body, {from: 'REDACTED'})
+  GmailApp.sendEmail(to, 'HR23 Collaborative Bios', body, {from: 'REDACTED'});
 }
 
 function sendToAll() {
-  for (name in contacts) {
+  for (var name in contacts) {
     sendFeedback(name);
   }
 }
