@@ -14,21 +14,15 @@ responses = responses.reduce(function (memo, row) {
 for (name in responses) {
   responses[name] = shuffle(responses[name]);
 }
-function debugResponses() {
-  Logger.log(responses);
-}
 
-var contactsSheet = spreadsheet.getSheetByName('contacts');
-var contacts = contactsSheet.getDataRange().getValues();
-contacts = contacts.reduce(function (memo, row) {
-  if (row[1]) {
-    memo[row[0]] = row[1];
-  }
-  return memo;
-}, {});
-function debugContacts() {
-  Logger.log(contacts);
-}
+var contacts = spreadsheet.getSheetByName('contacts')
+                .getDataRange().getValues()
+                .reduce(function (memo, row) {
+                    if (row[1]) {
+                      memo[row[0]] = row[1];
+                    }
+                    return memo;
+                  }, {});
 
 function arraysToObjects(arrayOfArrays) {
   // This function takes an array of arrays — such as the result of someSheet.getDataRange().getValues() — and transforms it

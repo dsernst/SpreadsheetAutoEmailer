@@ -2,21 +2,15 @@
 var me = Session.getActiveUser().getEmail();
 var aliases = GmailApp.getAliases();
 
-function checkAliases() {
-  Logger.log(aliases);
-}
-
 function sendFeedback(name) {
   name = name || 'David Ernst';
 
   // grab the email address for that name
   var to = contacts[name];
-  // Logger.log('to: ' + to);
 
   // grab the feedback array for that name
   var feedback = responses[name];
   feedback = '- ' + feedback.join('\n- ');
-  Logger.log('feedback: ' + feedback)
 
   var body = 'Way back around the beginning of March, a few people from our HR cohort filled out these anonymous forms about each other: \n' +
     '\n' +
@@ -36,7 +30,6 @@ function sendFeedback(name) {
     'David';
 
   GmailApp.sendEmail(to, 'HR23 Collaborative Bios', body, {from: 'REDACTED'})
-
 }
 
 function sendToAll() {
